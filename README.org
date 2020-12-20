@@ -1,0 +1,14 @@
+#+TITLE: doom-modeline-light
+#+AUTHOR: Sebastien Waegeneire
+
+This is a slimmed down version of ~doom-modeline~ that manipulates ~mode-line-format~ directly
+
+* Credits
+This package was extracted from `doom-emacs' by hlissner.
+https://github.com/hlissner/doom-emacs
+https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/modeline/%2Blight.el
+
+
+
+
+
