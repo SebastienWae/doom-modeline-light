@@ -101,7 +101,7 @@ side of the modeline, and whose CDR is the right-hand side.")
   (let ((win (selected-window)))
     (unless (minibuffer-window-active-p win)
       (setq +modeline--active-window (frame-selected-window)))))
-(add-hook 'pre-display-functions #'modeline-set-selected-window-h)
+(add-hook 'pre-redisplay-functions #'+modeline-set-selected-window-h)
 
 (defun +modeline--make-xpm (color width height)
   "Create an XPM bitmap via COLOR, WIDTH and HEIGHT. Inspired by `powerline''s `pl/+modeline--make-xpm'."
