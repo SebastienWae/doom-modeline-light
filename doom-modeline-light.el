@@ -143,14 +143,15 @@ side of the modeline, and whose CDR is the right-hand side.")
   "Set the modeline to NAME.
 If DEFAULT is non-nil, apply to all future buffers. Modelines are defined with
 `def-modeline!'."
-  (if-let* ((frmt (assq name +modeline-format-alist)))
-      (cl-destructuring-bind (lhs . rhs) (cdr frmt)
-	(if default
-            (setq-default +modeline-format-left lhs
-                          +modeline-format-right rhs)
-          (setq +modeline-format-left lhs
-                +modeline-format-right rhs)))
-    (error "Could not find %S modeline format" name)))
+  (let ((format (assq name +modeline-format-alist)))
+    (if format
+	(cl-destructuring-bind (lhs . rhs) (cdr frmt)
+	  (if default
+	      (setq-default +modeline-format-left lhs
+			    +modeline-format-right rhs)
+	    (setq +modeline-format-left lhs
+		  +modeline-format-right rhs)))
+      (error "could not find %s modeline format" name))))
 
 (defun doom-enlist (exp)
   "Return EXP wrapped in a list, or as-is if already a list."
