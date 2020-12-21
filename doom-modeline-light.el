@@ -258,7 +258,7 @@ LHS and RHS will accept."
 	    anzu--last-isearch-string anzu--overflow-p))))
 (add-hook 'isearch-mode #'+modeline-setup-anzu)
 
-(defun +modeline-setup-evil-anzu ()
+(defun +modeline-setup-evil-anzu (&rest _)
   (when (require 'evil-anzu nil 'noerror)
     (unless (bound-and-true-p anzu-mode)
       (+modeline-setup-anzu)
