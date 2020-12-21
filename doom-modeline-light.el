@@ -41,7 +41,6 @@
   (when (fboundp '+modeline-refresh-bars-h)
     (+modeline-refresh-bars-h)))
 
-(setq +modeline-height 35)
 ;;
 ;;; Variables
 
@@ -241,7 +240,6 @@ LHS and RHS will accept."
       (+modeline-refresh-bars-h))))
 (add-hook 'after-setting-font-hook #'+modeline-adjust-height-h)
 
-(featurep 'flycheck)
 ;;; `+modeline-matches'
 (defun +modeline-setup-anzu ()
   (when (require 'anzu nil 'noerror)
@@ -616,6 +614,3 @@ If FETCHER is a function, ELT is used as the key in LIST (an alist)."
    ((setq mode-line-format +modeline--old-format))))
 
 (define-global-minor-mode +modeline-global-mode +modeline-mode +modeline-mode)
-
-(add-hook '+modeline-global-mode-hook #'size-indication-mode)
-(add-hook 'window-setup-hook #'+modeline-global-mode)
