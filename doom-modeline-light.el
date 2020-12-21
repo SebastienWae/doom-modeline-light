@@ -145,7 +145,7 @@ If DEFAULT is non-nil, apply to all future buffers. Modelines are defined with
 `def-modeline!'."
   (let ((format (assq name +modeline-format-alist)))
     (if format
-	(cl-destructuring-bind (lhs . rhs) (cdr frmt)
+	(cl-destructuring-bind (lhs . rhs) (cdr format)
 	  (if default
 	      (setq-default +modeline-format-left lhs
 			    +modeline-format-right rhs)
