@@ -243,11 +243,11 @@ LHS and RHS will accept."
 ;;; `+modeline-matches'
 (defun +modeline-setup-anzu ()
   (when (require 'anzu nil 'noerror)
+    (global-anzu-mode +1)
     ;; We manage our own modeline segments
     (setq anzu-cons-mode-line-p nil)
     ;; Ensure anzu state is cleared when searches & iedit are done
     (add-hook 'iedit-mode-end-hook #'anzu--reset-status)
-    (advice-add #'evil-force-normal-state :before #'anzu--reset-status)
     ;; Fix matches segment mirroring across all buffers
     (mapc #'make-variable-buffer-local
 	  '(anzu--total-matched
@@ -260,11 +260,13 @@ LHS and RHS will accept."
 
 (defun +modeline-setup-evil-anzu ()
   (when (require 'evil-anzu nil 'noerror)
-    (global-anzu-mode +1)))
-(when evil-mode
-  (add-hook 'evil-ex-start-search #'+modeline-setup-evil-anzu)
-  (add-hook 'evil-ex-start-word-search #'+modeline-setup-evil-anzu)
-  (add-hook 'evil-ex-search-activate-highlight #'+modeline-setup-evil-anzu))
+    (unless (bound-and-true-p anzu-mode)
+      (+modeline-setup-anzu)
+      (advice-add #'evil-force-normal-state :before #'anzu--reset-status)))
+  (advice-remove 'evil-search #'+modeline-setup-evil-anzu))
+(with-eval-after-load 'evil
+  (advice-add 'evil-search :after #'+modeline-setup-evil-anzu))
+
 
 (defun +modeline--anzu ()
   "Show the match index and total number thereof.
