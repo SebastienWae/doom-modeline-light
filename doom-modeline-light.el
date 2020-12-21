@@ -259,14 +259,10 @@ LHS and RHS will accept."
 	    anzu--last-isearch-string anzu--overflow-p))))
 (add-hook 'isearch-mode #'+modeline-setup-anzu)
 
-(defun +modeline-setup-evil-anzu (&rest _)
-  (when (require 'evil-anzu nil 'noerror)
-    (unless (bound-and-true-p anzu-mode)
-      (+modeline-setup-anzu)
-      (advice-add #'evil-force-normal-state :before #'anzu--reset-status)))
-  (advice-remove 'evil-search #'+modeline-setup-evil-anzu))
 (with-eval-after-load 'evil
-  (advice-add 'evil-search :after #'+modeline-setup-evil-anzu))
+  (when (require 'evil-anzu nil 'noerror)
+    (+modeline-setup-anzu)
+    (advice-add #'evil-force-normal-state :before #'anzu--reset-status)))
 
 
 (defun +modeline--anzu ()
