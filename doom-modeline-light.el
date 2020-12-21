@@ -143,9 +143,9 @@ side of the modeline, and whose CDR is the right-hand side.")
   "Set the modeline to NAME.
 If DEFAULT is non-nil, apply to all future buffers. Modelines are defined with
 `def-modeline!'."
-  (if-let (frmt (assq name +modeline-format-alist))
+  (if-let ((frmt (assq name +modeline-format-alist)))
       (cl-destructuring-bind (lhs . rhs) (cdr frmt)
-        (if default
+	(if default
             (setq-default +modeline-format-left lhs
                           +modeline-format-right rhs)
           (setq +modeline-format-left lhs
