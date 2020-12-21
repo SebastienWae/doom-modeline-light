@@ -226,7 +226,7 @@ LHS and RHS will accept."
 	  '(:eval (if (+modeline-active)
 		      +modeline-active-bar
 		    +modeline-inactive-bar)))))
-(add-hook 'window-setup-hook #'+modeline-refresh-bars-h)
+(add-hook '+modeline-mode-hook #'+modeline-refresh-bars-h)
 
 (defun +modeline-adjust-height-h ()
   (defvar +modeline--old-height +modeline-height)
