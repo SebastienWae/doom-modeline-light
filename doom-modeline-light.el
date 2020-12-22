@@ -536,12 +536,26 @@ If FETCHER is a function, ELT is used as the key in LIST (an alist)."
       eol-mnemonic-unix "LF"
       eol-mnemonic-undecided "??")
 
+;;; `+modeline-evil'
+(def-modeline-var! +modeline-evil nil
+  :local t)
+(defun +modeline-evil-state-update ()
+  (let ((evil-state (evil-state-property evil-state :tag t)))
+    (setq +modeline-evil evil-state)))
+(add-hook 'evil-normal-state-entry-hook  #'+modeline-evil-state-update)
+(add-hook 'evil-insert-state-entry-hook  #'+modeline-evil-state-update)
+(add-hook 'evil-motion-state-entry-hook  #'+modeline-evil-state-update)
+(add-hook 'evil-visual-state-entry-hook  #'+modeline-evil-state-update)
+(add-hook 'evil-replace-state-entry-hook  #'+modeline-evil-state-update)
+(add-hook 'evil-operator-state-entry-hook  #'+modeline-evil-state-update)
+(add-hook 'evil-emacs-state-entry-hook  #'+modeline-evil-state-update)
 
 ;;
 ;;; Default modeline
 
 (def-modeline! :main
   '(""
+    +modeline-evil
     +modeline-matches
     " "
     +modeline-buffer-identification
