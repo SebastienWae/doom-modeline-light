@@ -540,8 +540,11 @@ If FETCHER is a function, ELT is used as the key in LIST (an alist)."
 (def-modeline-var! +modeline-evil nil
   :local t)
 (defun +modeline-evil-state-update ()
-  (let ((evil-state (evil-state-property evil-state :tag t)))
+  (let ((evil-state-tag (evil-state-property evil-state :tag t)))
+    (when (functionp evil-state-tag)
+      (setq evil-state-tag (evil-state-tag)))
     (setq +modeline-evil evil-state)))
+(add-hook 'evil-mode-hook #'+modeline-evil-state-update)
 (add-hook 'evil-normal-state-entry-hook  #'+modeline-evil-state-update)
 (add-hook 'evil-insert-state-entry-hook  #'+modeline-evil-state-update)
 (add-hook 'evil-motion-state-entry-hook  #'+modeline-evil-state-update)
